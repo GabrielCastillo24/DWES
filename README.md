@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
+    <img src="https://www.nus.agency/wp-content/uploads/2023/03/musica-arte-scaled.jpg" alt="musica">
+    
    <h1>🎵 Mi Aplicación Musical</h1>
     <h1>🎤 Índice</h1>
     <ol>
@@ -69,9 +71,9 @@
       <li><strong>SQL</strong></li>
     </ul>
     <h2 id="personas-contribuyentes">Personas Contribuyentes 🤝</h2>
-    <img src="https://avatars.githubusercontent.com/u/GabrielCastillo?v=4" width=115><br><sub>Gabriel Castillo</sub>(https://github.com/GabrielCasrillo24)
+    <img src="https://avatars.githubusercontent.com/u/182427502?s=400&v=4" width=115><br><sub>Gabriel Castillo</sub>(https://github.com/GabrielCasrillo24)
     <h2 id="personas-desarrolladoras-del-proyecto">Personas Desarrolladoras del Proyecto 💻</h2>
-     <img src="https://avatars.githubusercontent.com/u/GabrielCastillo?v=4" width=115><br><sub>Gabriel Castillo</sub>(https://github.com/GabrielCasrillo24)
+     <img src="https://avatars.githubusercontent.com/u/182427502?s=400&v=4" width=115><br><sub>Gabriel Castillo</sub>(https://github.com/GabrielCasrillo24)
      <h2 id="licencia">Licencias 📜</h2>
      <ul>
       <li><strong>Licencia de Código Fuente</strong></li>
