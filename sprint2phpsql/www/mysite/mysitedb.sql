@@ -1,58 +1,127 @@
+-- MariaDB dump 10.19  Distrib 10.11.6-MariaDB, for debian-linux-gnu (x86_64)
+--
+-- Host: localhost    Database: mysitedb
+-- ------------------------------------------------------
+-- Server version	10.11.6-MariaDB-0+deb12u1
 
-CREATE DATABASE mysitedb;
-USE mysitedb;
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
--- CREA LA TABLA USUARIO
-CREATE TABLE tUSUARIO (
-    id  INT AUTO_INCREMENT,
-    nombre VARCHAR (50),
-    apellido VARCHAR(100),
-    email VARCHAR(200) UNIQUE,
-    contraseña VARCHAR(200),
-    PRIMARY KEY (id)
-);
+--
+-- Table structure for table `tCOMENTARIOS`
+--
 
--- CREA LA TABLA LIBROS
-CREATE TABLE tLIBROS(
-    id INT AUTO_INCREMENT,
-    nombre VARCHAR(50),
-    url_imagen VARCHAR(200),
-    autor VARCHAR(50),
-    numPaginas INT,
-    PRIMARY KEY (id)
-);
+DROP TABLE IF EXISTS `tCOMENTARIOS`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tCOMENTARIOS` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `comentario` varchar(2000) DEFAULT NULL,
+  `usuarioId` int(11) DEFAULT NULL,
+  `libroId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `usuarioId` (`usuarioId`),
+  KEY `libroId` (`libroId`),
+  CONSTRAINT `tCOMENTARIOS_ibfk_1` FOREIGN KEY (`usuarioId`) REFERENCES `tUSUARIO` (`id`),
+  CONSTRAINT `tCOMENTARIOS_ibfk_2` FOREIGN KEY (`libroId`) REFERENCES `tLIBROS` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Dumping data for table `tCOMENTARIOS`
+--
 
--- CREA LA TABLA COMENTARIOS
-CREATE TABLE tCOMENTARIOS(
-    id INT AUTO_INCREMENT,
-    comentario VARCHAR(2000),
-    usuarioId INT,
-    libroId INT,
-    PRIMARY KEY (id),
-    FOREIGN KEY (usuarioId) REFERENCES tUSUARIO(id),
-    FOREIGN KEY (libroId) REFERENCES tLIBROS(id)
-);
+LOCK TABLES `tCOMENTARIOS` WRITE;
+/*!40000 ALTER TABLE `tCOMENTARIOS` DISABLE KEYS */;
+INSERT INTO `tCOMENTARIOS` VALUES
+(1,'comen1',1,1),
+(2,'comen1',2,2),
+(3,'comen1',3,3),
+(4,'comen1',4,4),
+(5,'comen1',5,5);
+/*!40000 ALTER TABLE `tCOMENTARIOS` ENABLE KEYS */;
+UNLOCK TABLES;
 
--- INSERTA DATOS A LA TABLA USUARIO
-INSERT INTO tUSUARIO (nombre,apellido,email,contraseña) values("user1","user1","user1@gmail.com","1234");
-INSERT INTO tUSUARIO (nombre,apellido,email,contraseña) values("user2","user2","user2@gmail.com","12345");
-INSERT INTO tUSUARIO (nombre,apellido,email,contraseña) values("user3","user3","user3@gmail.com","123456");
-INSERT INTO tUSUARIO (nombre,apellido,email,contraseña) values("user4","user4","user4@gmail.com","1234567");
-INSERT INTO tUSUARIO (nombre,apellido,email,contraseña) values("user4","user4","user5@gmail.com","12345678");
+--
+-- Table structure for table `tLIBROS`
+--
 
--- INSERTA DATOS A LA TABLA LIBROS 
-INSERT INTO tLIBROS (nombre,url_imagen) values("Libro1","url1");
-INSERT INTO tLIBROS (nombre,url_imagen) values("Libro2","url1");
-INSERT INTO tLIBROS (nombre,url_imagen) values("Libro3","url1");
-INSERT INTO tLIBROS (nombre,url_imagen) values("Libro4","url1");
-INSERT INTO tLIBROS (nombre,url_imagen) values("Libro5","url1");
+DROP TABLE IF EXISTS `tLIBROS`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tLIBROS` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) DEFAULT NULL,
+  `url_imagen` varchar(200) DEFAULT NULL,
+  `autor` varchar(50) DEFAULT NULL,
+  `numPaginas` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- INSERTA DATOS A LA TABLA COMENTARIOS 
-INSERT INTO tCOMENTARIOS (comentario,usuarioId,libroId) values("comen1",1,1);
-INSERT INTO tCOMENTARIOS (comentario,usuarioId,libroId) values("comen1",2,2);
-INSERT INTO tCOMENTARIOS (comentario,usuarioId,libroId) values("comen1",3,3);
-INSERT INTO tCOMENTARIOS (comentario,usuarioId,libroId) values("comen1",4,4);
-INSERT INTO tCOMENTARIOS (comentario,usuarioId,libroId) values("comen1",5,5);
+--
+-- Dumping data for table `tLIBROS`
+--
 
+LOCK TABLES `tLIBROS` WRITE;
+/*!40000 ALTER TABLE `tLIBROS` DISABLE KEYS */;
+INSERT INTO `tLIBROS` VALUES
+(1,'Libro1','url1',NULL,NULL),
+(2,'Libro2','url1',NULL,NULL),
+(3,'Libro3','url1',NULL,NULL),
+(4,'Libro4','url1',NULL,NULL),
+(5,'Libro5','url1',NULL,NULL);
+/*!40000 ALTER TABLE `tLIBROS` ENABLE KEYS */;
+UNLOCK TABLES;
 
+--
+-- Table structure for table `tUSUARIO`
+--
+
+DROP TABLE IF EXISTS `tUSUARIO`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tUSUARIO` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) DEFAULT NULL,
+  `apellido` varchar(100) DEFAULT NULL,
+  `email` varchar(200) DEFAULT NULL,
+  `contraseña` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tUSUARIO`
+--
+
+LOCK TABLES `tUSUARIO` WRITE;
+/*!40000 ALTER TABLE `tUSUARIO` DISABLE KEYS */;
+INSERT INTO `tUSUARIO` VALUES
+(1,'user1','user1','user1@gmail.com','1234'),
+(2,'user2','user2','user2@gmail.com','12345'),
+(3,'user3','user3','user3@gmail.com','123456'),
+(4,'user4','user4','user4@gmail.com','1234567'),
+(5,'user4','user4','user5@gmail.com','12345678');
+/*!40000 ALTER TABLE `tUSUARIO` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2024-10-23 13:03:19
