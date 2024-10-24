@@ -60,7 +60,7 @@ DROP TABLE IF EXISTS `tLIBROS`;
 CREATE TABLE `tLIBROS` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(50) DEFAULT NULL,
-  `url_imagen` varchar(200) DEFAULT NULL,
+  `url_imagen` varchar(400) DEFAULT NULL,
   `autor` varchar(50) DEFAULT NULL,
   `numPaginas` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -74,11 +74,11 @@ CREATE TABLE `tLIBROS` (
 LOCK TABLES `tLIBROS` WRITE;
 /*!40000 ALTER TABLE `tLIBROS` DISABLE KEYS */;
 INSERT INTO `tLIBROS` VALUES
-(1,'Libro1','url1',NULL,NULL),
-(2,'Libro2','url1',NULL,NULL),
-(3,'Libro3','url1',NULL,NULL),
-(4,'Libro4','url1',NULL,NULL),
-(5,'Libro5','url1',NULL,NULL);
+(1,'Libro1','https://img.freepik.com/vector-premium/acuarela-pila-antigua-libros-libro-abierto_92810-1041.jpg','autor1',100),
+(2,'Libro2','https://img.freepik.com/vector-premium/acuarela-pila-antigua-libros-libro-abierto_92810-1041.jpg','autor2',50),
+(3,'Libro3','https://img.freepik.com/vector-premium/acuarela-pila-antigua-libros-libro-abierto_92810-1041.jpg','autor3',90),
+(4,'Libro4','https://img.freepik.com/vector-premium/acuarela-pila-antigua-libros-libro-abierto_92810-1041.jpg','autor4',60),
+(5,'Libro5','https://img.freepik.com/vector-premium/acuarela-pila-antigua-libros-libro-abierto_92810-1041.jpg','autor5',200);
 /*!40000 ALTER TABLE `tLIBROS` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -124,4 +124,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-10-23 13:03:19
+-- Dump completed on 2024-10-24 10:41:50
