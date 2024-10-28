@@ -18,6 +18,8 @@
     ?>
 
     <?php
+        $fecha = date("Y-m-d H:i:s"); 
+        echo $fecha;
         if (!isset($_GET['libroid'])) {
         die('No se ha especificado un libro');
         }
@@ -35,7 +37,7 @@
         $query2 = 'SELECT * FROM tCOMENTARIOS WHERE libroId='.$libro_id;
         $result2 = mysqli_query($db, $query2) or die('Query error');
         while ($row = mysqli_fetch_array($result2)) {
-        echo '<li>'.$row['comentario'].'</li>';
+        echo '<li>'.$row['comentario'].$row['fechaComentario'].'</li>';
         }
         mysqli_close($db);
     ?>
@@ -44,6 +46,7 @@
     <form action="/comment.php" method="post">
         <textarea rows="4" cols="50" name="new_comment"></textarea><br>
         <input type="hidden" name="libroId" value="<?php echo $libro_id;?>">
+        <input type="hidden" name="fechaComentario" value="<?php echo $fecha;?>">
         <input type="submit" value="Comentar">
     </form>
 

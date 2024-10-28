@@ -27,12 +27,13 @@ CREATE TABLE `tCOMENTARIOS` (
   `comentario` varchar(2000) DEFAULT NULL,
   `usuarioId` int(11) DEFAULT NULL,
   `libroId` int(11) DEFAULT NULL,
+  `fechaComentario` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `usuarioId` (`usuarioId`),
   KEY `libroId` (`libroId`),
   CONSTRAINT `tCOMENTARIOS_ibfk_1` FOREIGN KEY (`usuarioId`) REFERENCES `tUSUARIO` (`id`),
   CONSTRAINT `tCOMENTARIOS_ibfk_2` FOREIGN KEY (`libroId`) REFERENCES `tLIBROS` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,11 +43,16 @@ CREATE TABLE `tCOMENTARIOS` (
 LOCK TABLES `tCOMENTARIOS` WRITE;
 /*!40000 ALTER TABLE `tCOMENTARIOS` DISABLE KEYS */;
 INSERT INTO `tCOMENTARIOS` VALUES
-(1,'comen1',1,1),
-(2,'comen1',2,2),
-(3,'comen1',3,3),
-(4,'comen1',4,4),
-(5,'comen1',5,5);
+(1,'comen1',1,1,NULL),
+(2,'comen1',2,2,NULL),
+(3,'comen1',3,3,NULL),
+(4,'comen1',4,4,NULL),
+(5,'comen1',5,5,NULL),
+(6,'quiero entrar en coment.php\r\n',NULL,3,NULL),
+(7,'Este es un nuevo comentario de prueba ',NULL,3,NULL),
+(8,'ESte es otro comentario de prueba 2\r\n',NULL,3,NULL),
+(9,'Hola',NULL,3,NULL),
+(10,'Hola soy un comentario ',NULL,3,'2024-10-28');
 /*!40000 ALTER TABLE `tCOMENTARIOS` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -124,4 +130,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-10-24 10:41:50
+-- Dump completed on 2024-10-28 22:22:53

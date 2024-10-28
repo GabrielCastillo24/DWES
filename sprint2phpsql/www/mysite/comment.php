@@ -11,14 +11,13 @@
     ?>
 
 <?php
-
     // Obtener valores del formulario
     $libro_id = $_POST['libroId'];
     $comentario = $_POST['new_comment'];
-    
+    $fecha = $_POST['fechaComentario'];
     // Definir y ejecutar la consulta
-    $query = "INSERT INTO tCOMENTARIOS(comentario, libroId, usuarioId)
-              VALUES ('".$comentario."', ".$libro_id.", NULL)";
+    $query = "INSERT INTO tCOMENTARIOS(comentario, libroId, usuarioId, fechaComentario)
+              VALUES ('".$comentario."', ".$libro_id.", NULL, '".$fecha."')";
     mysqli_query($db, $query) or die('Error en la inserción');
 
     // Confirmación de inserción
