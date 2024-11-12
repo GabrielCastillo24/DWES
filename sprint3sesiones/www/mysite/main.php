@@ -9,6 +9,19 @@
             width: 100px;
             height: 100px;
         }
+
+        img:hover{
+            transform: scale(1.1);
+            transition: 1s;
+        }
+
+        ul{
+        flex: 1 1 200px; /* Cada elemento tiene un tamaño base de 200px y puede crecer o reducirse según el espacio disponible */
+        padding: 20px;
+        background-color: lightblue;
+        text-align: center;
+        border: 1px solid #ccc;
+        }
     </style>
 </head>
 <body>
