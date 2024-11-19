@@ -26,7 +26,7 @@ class Heroe:
     def get_salud_maxima(self):
         return self.salud_maxima
     
-
+    #devuelve el ataque 
     def atacar(self):
         return self.ataque
     

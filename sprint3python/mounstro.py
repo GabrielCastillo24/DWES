@@ -25,6 +25,7 @@ class Mounstro:
         #Devuelve el ataque del mounstro
         return self.ataque,print(f"El mounstro {self.nombre} a atacado a {nombre}")
     
+    #verifica si el mountro esta vivo 
     def mounstroVivo(self):
         vivo = True
         if self.salud <=0:
