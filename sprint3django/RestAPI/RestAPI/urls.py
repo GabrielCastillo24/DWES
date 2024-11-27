@@ -19,6 +19,7 @@ from django.urls import path
 
 from webserviceapp import views
 
+#Los path de las url que se van a hacer las peticiones 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('test',views.pagina_de_prueba),
