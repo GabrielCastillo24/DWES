@@ -8,7 +8,7 @@
 <body>
 <?php
     // Conectar a la base de datos
-    $db = mysqli_connect('localhost', 'root', '1234', 'mysitedb') or die('Error al conectar a la base de datos');
+    $db = mysqli_connect('172.16.0.2', 'root', '1234', 'mysitedb') or die('Error al conectar a la base de datos');
     
     // Iniciar sesión para verificar si hay un usuario logueado
     session_start();
