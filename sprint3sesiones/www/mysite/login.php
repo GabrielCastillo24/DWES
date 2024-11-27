@@ -1,9 +1,9 @@
 <?php
 // Conexión a la base de datos
-$db = mysqli_connect('localhost', 'root', '1234', 'mysitedb') or die('Fail');
+$db = mysqli_connect('127.16.0', 'root', '1234', 'mysitedb') or die('Fail');
 
 // Recibir datos del formulario
-$email_posted = mysqli_real_escape_string($db, $_POST['f_email']);
+$email_posted = $_POST['f_email'];
 $password_posted = $_POST['f_password'];
 
 // Consulta para verificar el usuario por email

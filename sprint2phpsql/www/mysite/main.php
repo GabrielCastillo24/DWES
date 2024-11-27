@@ -1,3 +1,7 @@
+<!--ESTABLECE CONECCION A LA BASE DE DATOS-->
+<?php
+$db = mysqli_connect('localhost', 'root', '1234', 'mysitedb') or die('Fail');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,10 +16,7 @@
     </style>
 </head>
 <body>
-<!--ESTABLECE CONECCION A LA BASE DE DATOS-->
-<?php
-$db = mysqli_connect('localhost', 'root', '1234', 'mysitedb') or die('Fail');
-?>
+
 <h1>Conexión establecida</h1>
 <?php 
    
