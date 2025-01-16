@@ -14,11 +14,11 @@ class Usuario(AbstractUser):
     ]
     rol = models.CharField(max_length=100, choices=TIPO_USER)
     biografia = models.CharField(max_length=500, null=True)
-    def __dir__(self):
+    def __str__(self):
         return  self.username,self.rol
 
 #modelo de evento
-class Envento(models.Model):
+class Evento(models.Model):
     titulo = models.CharField(max_length=200)
     descripcion = models.CharField(max_length=500)
     fechaYhora = models.DateTimeField()
@@ -37,9 +37,16 @@ class Reserva(models.Model):
         ("cancelada","Cancelada")
     ]
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
-    evento = models.ForeignKey(Envento, on_delete=models.CASCADE)
+    evento = models.ForeignKey(Evento, on_delete=models.CASCADE)
     numeroEntradas = models.IntegerField()
     estado = models.CharField(max_length=100, choices=ESTADO_RESERVA, default="pendiente")
     def __str__(self):
         return self.usuario, self.estado
 
+class Comentario(models.Model):
+    textComentario = models.CharField(max_length=500)
+    evento = models.ForeignKey(Evento, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    fechaComentario = models.DateField()
+    def __str__(self):
+        return self.textComentario
