@@ -17,5 +17,3 @@ admin.site.register(Evento, EventoAdmin)
 admin.site.register(Usuario)
 admin.site.register(Reserva)
 admin.site.register(Comentario)
-
-

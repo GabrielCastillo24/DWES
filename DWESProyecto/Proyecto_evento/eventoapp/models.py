@@ -7,15 +7,15 @@ from django.db import models
 
 #Modelo de usuario
 class Usuario(AbstractUser):
-    #Tipo de usuarios que puede haber 
+    #Tipo de usuarios que puede haber
     TIPO_USER =[
         ("organizador","Organizador"),
         ("participante","Participante")
     ]
     rol = models.CharField(max_length=100, choices=TIPO_USER)
     biografia = models.CharField(max_length=500, null=True, blank=True)
-    def __str__(self):
-        return  self.username
+   # def __str__(self):
+       # return  self.username
 
 #modelo de evento
 class Evento(models.Model):
@@ -25,8 +25,8 @@ class Evento(models.Model):
     capacidadAsistente = models.IntegerField()
     urlImg = models.URLField(max_length=400)
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
-    def __str__(self):
-        return self.titulo
+   # def __str__(self):
+        #return self.titulo
 
 #Modelo de Reserva
 class Reserva(models.Model):
@@ -40,13 +40,13 @@ class Reserva(models.Model):
     evento = models.ForeignKey(Evento, on_delete=models.CASCADE)
     numeroEntradas = models.IntegerField()
     estado = models.CharField(max_length=100, choices=ESTADO_RESERVA, default="pendiente")
-    def __str__(self):
-        return self.usuario
+    #def __str__(self):
+       # return self.usuario
 
 class Comentario(models.Model):
     textComentario = models.CharField(max_length=500)
     evento = models.ForeignKey(Evento, on_delete=models.CASCADE)
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     fechaComentario = models.DateField()
-    def __str__(self):
-        return self.textComentario
+    #def __str__(self):
+       # return self.textComentario
