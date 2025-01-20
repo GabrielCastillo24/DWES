@@ -13,7 +13,7 @@ class Usuario(AbstractUser):
         ("participante","Participante")
     ]
     rol = models.CharField(max_length=100, choices=TIPO_USER)
-    biografia = models.CharField(max_length=500, null=True)
+    biografia = models.CharField(max_length=500, null=True, blank=True)
     def __str__(self):
         return  self.username,self.rol
 
