@@ -21,5 +21,6 @@ from eventoapp import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('lista_evento/',views.listar_evento),
+    path('evento/',views.eventos_por_nombre),
 
 ]

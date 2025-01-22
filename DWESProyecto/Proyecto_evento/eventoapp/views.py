@@ -1,3 +1,6 @@
+from itertools import product
+
+from django.db.models.fields import return_None
 from django.http import JsonResponse
 from django.shortcuts import render
 from .models import  Evento
@@ -14,7 +17,6 @@ def listar_evento (request):
         "capacidadAsistente": event.capacidadAsistente,
         "urlImg":event.urlImg
         }
-
              for event in eventos]
     """
     for valor in eventos:
@@ -28,3 +30,8 @@ def listar_evento (request):
         lista.append(evento)"""
     return JsonResponse(lista,safe=False)
 
+def eventos_por_nombre(request):
+    titulo = request.GET.get("titulo","")
+    evento = Evento.objects.filter(titulo=titulo)
+    lista = [{"titulo": event.titulo,"Descripcion": event.descripcion ,"fecha y hora":event.fechaYhora}for event in evento]
+    return JsonResponse(lista,safe=False)
