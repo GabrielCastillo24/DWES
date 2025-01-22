@@ -50,3 +50,4 @@ class Comentario(models.Model):
     fechaComentario = models.DateField()
     #def __str__(self):
        # return self.textComentario
+
