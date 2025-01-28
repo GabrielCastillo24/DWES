@@ -109,3 +109,13 @@ def actuazalizar_evento(request, id):
             evento.save()
         return JsonResponse({"mensaje": "Producto actualizado"})
 
+@csrf_exempt
+def eliminar_evento(request,id):
+    info = json.loads(request.body)
+    rol_dicc = info["rol"]
+    if request.method == "DELETE" and rol_dicc == "organizador":
+        print(info)
+        print(rol_dicc)
+        evento = Evento.objects.get(id=id)
+        evento.delete()
+        return JsonResponse ({"Mensaje" : "Evento eliminado"})
