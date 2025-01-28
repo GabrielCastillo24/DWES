@@ -94,3 +94,18 @@ def crear_evento(request):
             #No se pudo crear el evento
             return JsonResponse({"Mensaje": "No se pudo crear el objeto "})
 
+@csrf_exempt
+def actuazalizar_evento(request, id):
+    if request.method in ["PUT","PACHT"]:
+        info = json.loads(request.body)
+        rol = info.get("rol","")
+        if rol == "organizador":
+            evento = Evento.objects.get(id=id)
+            evento.titulo = info.get("titulo",evento.titulo)
+            evento.descripcion = info.get("descripcion",evento.descripcion)
+            evento.fechaYhora = info.get("fechaYhora",evento.fechaYhora)
+            evento.capacidadAsistente = info.get("capacidadAsistente",evento.capacidadAsistente)
+            evento.urlImg = info.get("urlImg",evento.urlImg)
+            evento.save()
+        return JsonResponse({"mensaje": "Producto actualizado"})
+
