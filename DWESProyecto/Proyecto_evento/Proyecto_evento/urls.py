@@ -27,4 +27,5 @@ urlpatterns = [
     path('actuazalizar_evento/<int:id>/',views.actuazalizar_evento),
     path('eliminar_evento/<int:id>/', views.eliminar_evento),
     path('listar_reserva/<int:id>/',views.listar_reserva_usuario),
+    path('crear_reserva/',views.crear_reserva),
 ]

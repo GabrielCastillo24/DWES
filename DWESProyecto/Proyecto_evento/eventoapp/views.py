@@ -133,3 +133,21 @@ def listar_reserva_usuario(request,id):
         }
     for reserv in reservas]
     return JsonResponse(lista, safe=False)
+
+@csrf_exempt
+def crear_reserva(request):
+    if request.method == "POST":
+        info = json.loads(request.body)
+        nombreUsuario = info['nombre']
+        nombreEvento = info['titulo']
+
+        usuarioReserva = Usuario.objects.get(username=nombreUsuario)
+        eventoReserva = Evento.objects.get(titulo=nombreEvento)
+
+        reserva = Reserva.objects.create(
+            usuario= usuarioReserva,
+            evento = eventoReserva,
+            numeroEntradas=info['numeroEntradas'],
+            estado = info['estado']
+        )
+        return JsonResponse({"id": reserva.id, "mensaje": "La reserva a sido creada exitosamente"})
