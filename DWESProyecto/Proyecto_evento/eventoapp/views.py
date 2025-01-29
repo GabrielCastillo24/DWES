@@ -107,7 +107,7 @@ def actuazalizar_evento(request, id):
             evento.capacidadAsistente = info.get("capacidadAsistente",evento.capacidadAsistente)
             evento.urlImg = info.get("urlImg",evento.urlImg)
             evento.save()
-        return JsonResponse({"mensaje": "Producto actualizado"})
+            return JsonResponse({"mensaje": "Evento actualizado"})
 
 @csrf_exempt
 def eliminar_evento(request,id):
@@ -119,3 +119,17 @@ def eliminar_evento(request,id):
         evento = Evento.objects.get(id=id)
         evento.delete()
         return JsonResponse ({"Mensaje" : "Evento eliminado"})
+
+
+def listar_reserva_usuario(request,id):
+    usuario = Usuario.objects.get(id=id)
+    reservas = Reserva.objects.select_related('usuario').filter(usuario=usuario)
+    lista =[{
+        "evento": reserv.evento.titulo,
+        "idEvento": reserv.evento.id,
+        "numeroEntradas": reserv.numeroEntradas,
+        "estado": reserv.estado,
+        "usuario": reserv.usuario.username
+        }
+    for reserv in reservas]
+    return JsonResponse(lista, safe=False)
