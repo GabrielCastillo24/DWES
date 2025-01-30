@@ -16,10 +16,12 @@ def listar_evento (request):
     eventos = Evento.objects.all()
     lista = [{
         "titulo":event.titulo,
+        "idEvento": event.id,
         "descripcion": event.descripcion,
         "fechaYhora": event.fechaYhora,
         "capacidadAsistente": event.capacidadAsistente,
-        "urlImg":event.urlImg
+        "urlImg":event.urlImg,
+        "usuario": event.usuario.id
         }
              for event in eventos]
     """
@@ -98,9 +100,12 @@ def crear_evento(request):
 def actuazalizar_evento(request, id):
     if request.method in ["PUT","PACHT"]:
         info = json.loads(request.body)
-        rol = info.get("rol","")
-        if rol == "organizador":
-            evento = Evento.objects.get(id=id)
+        idUser = info.get("iduser","")
+
+        evento = Evento.objects.get(id=id)
+        usuario = Usuario.objects.get(id=idUser)
+
+        if usuario == evento.usuario:
             evento.titulo = info.get("titulo",evento.titulo)
             evento.descripcion = info.get("descripcion",evento.descripcion)
             evento.fechaYhora = info.get("fechaYhora",evento.fechaYhora)
@@ -108,6 +113,8 @@ def actuazalizar_evento(request, id):
             evento.urlImg = info.get("urlImg",evento.urlImg)
             evento.save()
             return JsonResponse({"mensaje": "Evento actualizado"})
+        else:
+            return  JsonResponse({"mensaje": "No se pudo actualizar"})
 
 @csrf_exempt
 def eliminar_evento(request,id):
