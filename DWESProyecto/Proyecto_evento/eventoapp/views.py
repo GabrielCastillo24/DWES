@@ -132,11 +132,13 @@ def listar_reserva_usuario(request,id):
     usuario = Usuario.objects.get(id=id)
     reservas = Reserva.objects.select_related('usuario').filter(usuario=usuario)
     lista =[{
+        "idreserva": reserv.id,
         "evento": reserv.evento.titulo,
         "idEvento": reserv.evento.id,
         "numeroEntradas": reserv.numeroEntradas,
         "estado": reserv.estado,
-        "usuario": reserv.usuario.username
+        "usuario": reserv.usuario.username,
+        "iduser": reserv.usuario.id
         }
     for reserv in reservas]
     return JsonResponse(lista, safe=False)
@@ -158,3 +160,23 @@ def crear_reserva(request):
             estado = info['estado']
         )
         return JsonResponse({"id": reserva.id, "mensaje": "La reserva a sido creada exitosamente"})
+
+@csrf_exempt
+def eliminar_reserva(request,id):
+    reserva = Reserva.objects.get(id=id)
+    info = json.loads(request.body)
+
+    idUser = info['iduser']
+
+    usuario = Usuario.objects.get(id= idUser)
+
+    if reserva.usuario == usuario:
+        reserva.delete()
+        return  JsonResponse ({"id": reserva.id,"Mensaje" : "Reserva eliminado"})
+    else:
+        return JsonResponse({"Mensaje": "No se a podido eliminar la reserva"})
+
+
+
+
+

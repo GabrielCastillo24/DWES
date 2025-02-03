@@ -28,4 +28,6 @@ urlpatterns = [
     path('eliminar_evento/<int:id>/', views.eliminar_evento),
     path('listar_reserva/<int:id>/',views.listar_reserva_usuario),
     path('crear_reserva/',views.crear_reserva),
+    path('eliminar_reserva/<int:id>/',views.eliminar_reserva),
+    path('listar_comentarios_evento/<int:id>/',views.listar_comentarios_evento),
 ]
