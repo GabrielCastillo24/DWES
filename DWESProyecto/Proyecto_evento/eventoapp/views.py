@@ -74,13 +74,12 @@ def crear_evento(request):
     #Verifica si el metodo es POST
     if request.method == "POST":
         #Toma el nombre de usuario del creador del evento
-        nombreRequest = request.GET.get("nombre","")
+        info = json.loads(request.body)
+        nombreRequest = info["nombreUser"]
         #Filtra en la base de datos para que me busque el usuario
         bucarUsuario = Usuario.objects.get(username=nombreRequest)
         #Verifica si el usaurio es un organizador
         if bucarUsuario.rol == "organizador":
-            #Cuerpor del evento que se va a crear
-            info = json.loads(request.body)
             #Creamos el evento
             evento = Evento.objects.create(
                 titulo = info["titulo"],
@@ -94,17 +93,20 @@ def crear_evento(request):
             return JsonResponse({"id":evento.id, "Mensaje": "Evento creado exitosamente"})
         else:
             #No se pudo crear el evento
-            return JsonResponse({"Mensaje": "No se pudo crear el objeto "})
+            return JsonResponse({"Mensaje": "No se pudo crear el Evento "})
 
 @csrf_exempt
 def actuazalizar_evento(request, id):
-    if request.method in ["PUT","PACHT"]:
+    #verifca que metodo es
+    if request.method in ["PUT","PATCH"]:
         info = json.loads(request.body)
+        #toma el ide del usuario
         idUser = info.get("iduser","")
-
+        #toma el evento
         evento = Evento.objects.get(id=id)
+        #toma al usuario
         usuario = Usuario.objects.get(id=idUser)
-
+        #si el usuario es el mismo que el que tiene el evento actualaiza el evento
         if usuario == evento.usuario:
             evento.titulo = info.get("titulo",evento.titulo)
             evento.descripcion = info.get("descripcion",evento.descripcion)
@@ -119,7 +121,9 @@ def actuazalizar_evento(request, id):
 @csrf_exempt
 def eliminar_evento(request,id):
     info = json.loads(request.body)
+    #toma el rol que se le envia por json
     rol_dicc = info["rol"]
+    #verifica si es organizador y si es borra el evento
     if request.method == "DELETE" and rol_dicc == "organizador":
         print(info)
         print(rol_dicc)
@@ -211,5 +215,43 @@ def crear_comentario(request):
     else:
         return JsonResponse({"Tienes que estar autenticado para hacer un comentario"})
 
+
+@csrf_exempt
+def login(request):
+    info = json.loads(request.body)
+    nombreUser = info.get("NombreUsuario", "")
+    contraseña = info["Contraseña"]
+
+    if nombreUser == "":
+        return JsonResponse({"mensaje":"El nombre de usuario esta bacio"})
+    else:
+        usuario = Usuario.objects.get(username=nombreUser)
+
+        if usuario.password == contraseña:
+            return JsonResponse({"mensaje":"Login correcto"})
+
+
+
+
+@csrf_exempt
+def registrar(request):
+    info =  json.loads(request.body)
+    nombreUsuario= info["NombreUsuario"]
+    emailU = info["Email"]
+    contarseña = info["Contraseña"]
+    rol = "participante"
+    biografia = info["biografia"]
+
+    if Usuario.objects.filter(username=nombreUsuario).exists():
+        return JsonResponse({"Mensaje": "No se puede crear el usuario"})
+    else:
+        usuario = Usuario.objects.create_user(
+            username=nombreUsuario,
+            email=emailU,
+            password=contarseña,
+            rol= rol,
+            biografia=biografia
+        )
+        return JsonResponse({"Mensaje": "Te haz registrado correctamente "})
 
 
