@@ -189,7 +189,27 @@ def listar_comentarios_evento(request,id):
 
     return JsonResponse(lista, safe=False)
 
+@csrf_exempt
+def crear_comentario(request):
+    info = json.loads(request.body)
 
+    if info["sesion"] == "si":
+        nombreUser = info["nombreUser"]
+        nombreEvento = info["nombreEvento"]
+        comentarioTxt = info["comentario"]
+        fecha = info["fecha"]
+
+        usuario = Usuario.objects.get(username__iexact=nombreUser)
+        evento = Evento.objects.get(titulo__iexact=nombreEvento)
+        comentario = Comentario.objects.create(
+            textComentario = comentarioTxt,
+            usuario =usuario,
+            evento = evento,
+            fechaComentario =fecha
+        )
+        return JsonResponse({"id": comentario.id, "mensaje": "El Comentario se ha creado correctamente."})
+    else:
+        return JsonResponse({"Tienes que estar autenticado para hacer un comentario"})
 
 
 

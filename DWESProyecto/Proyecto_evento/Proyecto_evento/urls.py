@@ -30,4 +30,5 @@ urlpatterns = [
     path('crear_reserva/',views.crear_reserva),
     path('eliminar_reserva/<int:id>/',views.eliminar_reserva),
     path('listar_comentarios_evento/<int:id>/',views.listar_comentarios_evento),
+    path('crear_comentario/',views.crear_comentario),
 ]
