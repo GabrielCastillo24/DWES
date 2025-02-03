@@ -133,7 +133,9 @@ def eliminar_evento(request,id):
 
 
 def listar_reserva_usuario(request,id):
+    #Toma el id del usuario
     usuario = Usuario.objects.get(id=id)
+    #devuelve la reserva que pertenzcan a ese usuario
     reservas = Reserva.objects.select_related('usuario').filter(usuario=usuario)
     lista =[{
         "idreserva": reserv.id,
@@ -149,14 +151,15 @@ def listar_reserva_usuario(request,id):
 
 @csrf_exempt
 def crear_reserva(request):
+    #verifica si es un POST
     if request.method == "POST":
         info = json.loads(request.body)
         nombreUsuario = info['nombre']
         nombreEvento = info['titulo']
-
+        #toma el usaurio y el vento
         usuarioReserva = Usuario.objects.get(username=nombreUsuario)
         eventoReserva = Evento.objects.get(titulo=nombreEvento)
-
+        #crea la reserva del suario y el evento que tomo
         reserva = Reserva.objects.create(
             usuario= usuarioReserva,
             evento = eventoReserva,
@@ -167,13 +170,14 @@ def crear_reserva(request):
 
 @csrf_exempt
 def eliminar_reserva(request,id):
+    #toma el evento por el id que se le pasa por parametro
     reserva = Reserva.objects.get(id=id)
     info = json.loads(request.body)
 
     idUser = info['iduser']
 
     usuario = Usuario.objects.get(id= idUser)
-
+    #verifica si el usuario que se le pasa es el mismo de la reserva y si lo es lo borra
     if reserva.usuario == usuario:
         reserva.delete()
         return  JsonResponse ({"id": reserva.id,"Mensaje" : "Reserva eliminado"})
@@ -182,7 +186,9 @@ def eliminar_reserva(request,id):
 
 def listar_comentarios_evento(request,id):
     evento =  Evento.objects.get(id=id)
+    #busca los comentarios que tiene el evento
     comentarios = Comentario.objects.select_related('evento').filter(evento=evento)
+    #cuepor de la respuesta
     lista = [{
         "Comentario": comentario.textComentario,
         "fecha": comentario.fechaComentario,
@@ -196,13 +202,13 @@ def listar_comentarios_evento(request,id):
 @csrf_exempt
 def crear_comentario(request):
     info = json.loads(request.body)
-
+    #toma los datos
     if info["sesion"] == "si":
         nombreUser = info["nombreUser"]
         nombreEvento = info["nombreEvento"]
         comentarioTxt = info["comentario"]
         fecha = info["fecha"]
-
+        #toma el usuario y el evento al cual va ir dirijido el comentario
         usuario = Usuario.objects.get(username__iexact=nombreUser)
         evento = Evento.objects.get(titulo__iexact=nombreEvento)
         comentario = Comentario.objects.create(
@@ -221,7 +227,7 @@ def login(request):
     info = json.loads(request.body)
     nombreUser = info.get("NombreUsuario", "")
     contraseña = info["Contraseña"]
-
+    #verifica si el campo viene vacio
     if nombreUser == "":
         return JsonResponse({"mensaje":"El nombre de usuario esta bacio"})
     else:
@@ -241,7 +247,7 @@ def registrar(request):
     contarseña = info["Contraseña"]
     rol = "participante"
     biografia = info["biografia"]
-
+    #verifica si no existe el usuario y si no existe deja crear el objeto 
     if Usuario.objects.filter(username=nombreUsuario).exists():
         return JsonResponse({"Mensaje": "No se puede crear el usuario"})
     else:
