@@ -176,6 +176,19 @@ def eliminar_reserva(request,id):
     else:
         return JsonResponse({"Mensaje": "No se a podido eliminar la reserva"})
 
+def listar_comentarios_evento(request,id):
+    evento =  Evento.objects.get(id=id)
+    comentarios = Comentario.objects.select_related('evento').filter(evento=evento)
+    lista = [{
+        "Comentario": comentario.textComentario,
+        "fecha": comentario.fechaComentario,
+        "idevento":comentario.evento.id,
+        "evento": comentario.evento.titulo
+    }
+        for comentario in comentarios]
+
+    return JsonResponse(lista, safe=False)
+
 
 
 
