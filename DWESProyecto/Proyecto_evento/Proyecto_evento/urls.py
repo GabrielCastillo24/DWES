@@ -14,23 +14,40 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from tkinter.font import names
+
 from django.contrib import admin
+from eventoapp.views import listarEventos
+from eventoapp.views import eventosPorNombre
+from eventoapp.views import crearEvento
+from eventoapp.views import actualizarEvento
+from eventoapp.views import EliminarEvento
+from eventoapp.views import ListarReservaUsuario
+from eventoapp.views import CrearReserva
+from eventoapp.views import EliminarReserva
+from eventoapp.views import ListarComentarios
+from eventoapp.views import ListarComentariosEvento
+from eventoapp.views import CrearComentario
+from eventoapp.views import Resgistrar
 from django.urls import path
-from eventoapp import views
+#from eventoapp import views
+from rest_framework.authtoken.views import ObtainAuthToken
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('lista_evento/',views.listar_evento),
-    path('evento/',views.eventos_por_nombre),
-    path('eventos/',views.eventos_por_paginas),
-    path('crear_evento/',views.crear_evento),
-    path('actuazalizar_evento/<int:id>/',views.actuazalizar_evento),
-    path('eliminar_evento/<int:id>/', views.eliminar_evento),
-    path('listar_reserva/<int:id>/',views.listar_reserva_usuario),
-    path('crear_reserva/',views.crear_reserva),
-    path('eliminar_reserva/<int:id>/',views.eliminar_reserva),
-    path('listar_comentarios_evento/<int:id>/',views.listar_comentarios_evento),
-    path('crear_comentario/',views.crear_comentario),
-    path('login/',views.login),
-    path('registrar/',views.registrar),
+    path('lista_evento/',listarEventos.as_view(),name="listarEvento"),
+    path('evento/',eventosPorNombre.as_view(), name="listarEventosPorNombre"),
+    #path('eventos/',views.eventos_por_paginas),
+    path('crear_evento/',crearEvento.as_view(), name="crearEvento"),
+    path('actuazalizar_evento/<int:id>/',actualizarEvento.as_view(), name="Actualizar evento"),
+    path('eliminar_evento/<int:id>/', EliminarEvento.as_view(), name="Eliminar evento"),
+    path('listar_reserva/<int:id>/',ListarReservaUsuario.as_view(), name="Listar Reservas"),
+    path('crear_reserva/',CrearReserva.as_view(), name="crear Reserva "),
+    path('eliminar_reserva/<int:id>/',EliminarReserva.as_view(), name="EliminarReserva"),
+    path('listarComentarios/',ListarComentarios.as_view(), name="ListarComentarios"),
+    path('listar_comentarios_evento/<int:id>/',ListarComentariosEvento.as_view(), name= "ListarComentarioEvento"),
+    path('crear_comentario/',CrearComentario.as_view(), name="crear comentario"),
+    path('login/', ObtainAuthToken.as_view(), name='api_token_auth'),
+    path('registrar/',Resgistrar.as_view(),name="Resguistrar"),
 ]
