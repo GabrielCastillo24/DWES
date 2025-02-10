@@ -32,7 +32,9 @@ from eventoapp.views import Resgistrar
 from django.urls import path
 #from eventoapp import views
 from rest_framework.authtoken.views import ObtainAuthToken
-
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+from rest_framework.permissions import AllowAny
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -50,4 +52,18 @@ urlpatterns = [
     path('crear_comentario/',CrearComentario.as_view(), name="crear comentario"),
     path('login/', ObtainAuthToken.as_view(), name='api_token_auth'),
     path('registrar/',Resgistrar.as_view(),name="Resguistrar"),
+]
+schema_view = get_schema_view(
+    openapi.Info(
+        title="API EventoApp",
+        default_version="v1",
+        description="Esta es una api que devuelve peticiones de Eventos ",
+    ),
+    public=True,
+    permission_classes=[AllowAny],
+)
+
+urlpatterns += [
+    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]

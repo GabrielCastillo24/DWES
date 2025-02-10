@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'eventoapp.apps.EventoappConfig',
     'rest_framework',
     'rest_framework.authtoken',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
