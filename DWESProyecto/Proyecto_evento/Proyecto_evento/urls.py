@@ -39,8 +39,7 @@ from rest_framework.permissions import AllowAny
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.login, name='login'),
-    path('inicio/', views.inicio, name='inicio'),
-    path('eventos/', views.eventos_html, name='eventos_html'),
+    path('inicio/', views.eventos_html, name='eventos_html'),
     #----------------------------------------------------------------
     path('lista_evento/',listarEventos.as_view(),name="listarEvento"),
     path('evento/',eventosPorNombre.as_view(), name="listarEventosPorNombre"),

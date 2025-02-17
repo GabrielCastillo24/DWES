@@ -29,8 +29,10 @@ class VerificarUser(BasePermission):
 def login(request):
     return render(request, 'login.html')
 
-def inicio(request):
-    return render(request, 'inicio.html')
+#Esto ya lo hace enlistar eventos
+#def inicio(request):
+#    return render(request, 'inicio.html')
+
 #--------------------Vistas para html----------------------------------------
 
 def eventos_html(request):
@@ -44,6 +46,7 @@ def eventos_html(request):
         "urlImg": event.urlImg,
         "usuario": event.usuario.id
     } for event in eventos]
+    print(lista)
     return render(request, 'inicio.html', {'eventos': lista})
 
 
