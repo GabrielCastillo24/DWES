@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Registro</title>
+</head>
+<body>
+    <header>
+        <h1>Bienvenido a inicio</h1>
+    </header>
+
+        <table border="1">
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Descripción</th>
+                <th>Fecha y Hora</th>
+                <th>Capacidad</th>
+                <th>Imagen</th>
+                <th>Usuario</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for evento in eventos %}
+            <tr>
+                <td>{{ evento.titulo }}</td>
+                <td>{{ evento.descripcion }}</td>
+                <td>{{ evento.fechaYhora }}</td>
+                <td>{{ evento.capacidadAsistente }}</td>
+                <td>
+                    <img src="{{ evento.urlImg }}" alt="Imagen Evento" width="100">
+                </td>
+                <td>{{ evento.usuario.username }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6">No hay eventos disponibles.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+</html>

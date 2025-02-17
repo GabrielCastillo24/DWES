@@ -14,7 +14,7 @@ from rest_framework.permissions import BasePermission
 from rest_framework.views import APIView
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
-
+from django.shortcuts import render
 from .models import *
 
 class VerificarUser(BasePermission):
@@ -23,6 +23,31 @@ class VerificarUser(BasePermission):
 
 
 # Create your views here.
+
+
+
+def login(request):
+    return render(request, 'login.html')
+
+def inicio(request):
+    return render(request, 'inicio.html')
+#--------------------Vistas para html----------------------------------------
+
+def eventos_html(request):
+    eventos = Evento.objects.all()
+    lista = [{
+        "titulo": event.titulo,
+        "idEvento": event.id,
+        "descripcion": event.descripcion,
+        "fechaYhora": event.fechaYhora,
+        "capacidadAsistente": event.capacidadAsistente,
+        "urlImg": event.urlImg,
+        "usuario": event.usuario.id
+    } for event in eventos]
+    return render(request, 'inicio.html', {'eventos': lista})
+
+
+#----------------------------Postman--------------------------------
 
 class listarEventos(APIView):
     permission_classes = [IsAuthenticated]

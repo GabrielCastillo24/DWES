@@ -30,7 +30,7 @@ from eventoapp.views import ListarComentariosEvento
 from eventoapp.views import CrearComentario
 from eventoapp.views import Resgistrar
 from django.urls import path
-#from eventoapp import views
+from eventoapp import views
 from rest_framework.authtoken.views import ObtainAuthToken
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
@@ -38,6 +38,10 @@ from rest_framework.permissions import AllowAny
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', views.login, name='login'),
+    path('inicio/', views.inicio, name='inicio'),
+    path('eventos/', views.eventos_html, name='eventos_html'),
+    #----------------------------------------------------------------
     path('lista_evento/',listarEventos.as_view(),name="listarEvento"),
     path('evento/',eventosPorNombre.as_view(), name="listarEventosPorNombre"),
     #path('eventos/',views.eventos_por_paginas),
