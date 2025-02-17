@@ -4,6 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Registro</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0px;
+            padding: 0;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+
+        header {
+            background-color: black;
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+            border-radius: 3px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        table th, table td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        table th {
+            background-color: black;
+            color: white;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        table img {
+            border-radius: 5px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -25,7 +73,10 @@
             {% for evento in eventos %}
             <tr>
                 <td>{{ evento.titulo }}</td>
-                <td>{{ evento.descripcion }}</td>
+                <td>
+                    {{ evento.descripcion }}
+                    <p><a href="">Mas detalles</a></p>
+                </td>
                 <td>{{ evento.fechaYhora }}</td>
                 <td>{{ evento.capacidadAsistente }}</td>
                 <td>

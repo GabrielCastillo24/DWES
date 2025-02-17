@@ -37,17 +37,7 @@ def login(request):
 
 def eventos_html(request):
     eventos = Evento.objects.all()
-    lista = [{
-        "titulo": event.titulo,
-        "idEvento": event.id,
-        "descripcion": event.descripcion,
-        "fechaYhora": event.fechaYhora,
-        "capacidadAsistente": event.capacidadAsistente,
-        "urlImg": event.urlImg,
-        "usuario": event.usuario.id
-    } for event in eventos]
-    print(lista)
-    return render(request, 'inicio.html', {'eventos': lista})
+    return render(request, 'inicio.html', {'eventos': eventos})
 
 
 #----------------------------Postman--------------------------------
