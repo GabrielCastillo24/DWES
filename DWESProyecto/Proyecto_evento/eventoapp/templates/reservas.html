@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Registro</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0px;
+            padding: 0;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+
+        header {
+            background-color: black;
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+            border-radius: 3px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        section {
+    margin: 20px auto;
+    padding: 20px;
+    width: 90%;
+    max-width: 500px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+section h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+section form {
+    display: flex;
+    flex-direction: column;
+}
+
+section form label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+section form input[type="text"],
+section form input[type="email"],
+section form input[type="number"] {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 16px;
+}
+
+section form input[type="submit"] {
+    padding: 12px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+section form input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+form {
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            margin-left: 32%;
+        }
+        /* Título */
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        /* Etiquetas */
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: bold;
+        }
+        /* Campos de entrada */
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        /* Botón de envío */
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #007BFF;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Rservas</h1>
+    </header>
+<h2>Reserva tu lugar</h2>
+<form id="reserva-form">
+    {% csrf_token %}
+    <label for="nombre">Nombre:</label>
+    <input type="text" name="nombre" id="nombre" required><br>
+
+    <label for="titulo">Título del Evento:</label>
+    <input type="text" name="titulo" id="titulo" required><br>
+
+    <label for="numeroEntradas">Número de Entradas:</label>
+    <input type="number" name="numeroEntradas" id="numeroEntradas" min="1" required><br>
+
+    <!-- Campo oculto para enviar un estado predeterminado -->
+    <input type="hidden" name="estado" value="Pendiente">
+
+    <input type="submit" value="Reservar">
+</form>
+
+<script>
+    document.getElementById('reserva-form').addEventListener('submit', async function(event) {
+        event.preventDefault();
+
+        const formData = new FormData(this);
+        const data = {
+            nombre: formData.get('nombre'),
+            titulo: formData.get('titulo'),
+            numeroEntradas: parseInt(formData.get('numeroEntradas')),
+            estado: formData.get('estado')
+        };
+
+        try {
+            // Si usas autenticación basada en token, descomenta la siguiente línea y asegúrate de que el token esté almacenado:
+            // const token = localStorage.getItem('token');
+            const response = await fetch('http://127.0.0.1:8000/crear_reserva/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // 'Authorization': 'Bearer ' + token,
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error('Error en la reserva: ' + (errorData.detail || ''));
+            }
+
+            const result = await response.json();
+            alert('Reserva creada con éxito. ID: ' + result.id);
+            // Aquí puedes redirigir o actualizar la UI según necesites
+        } catch (error) {
+            console.error(error);
+            alert('Ocurrió un error al realizar la reserva: ' + error.message);
+        }
+    });
+</script>
+</body>
+</html>

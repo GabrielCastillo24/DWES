@@ -29,9 +29,13 @@ class VerificarUser(BasePermission):
 def login(request):
     return render(request, 'login.html')
 
+def reservas(request):
+    return render(request, 'reservas.html')
+
 #Esto ya lo hace enlistar eventos
 #def inicio(request):
 #    return render(request, 'inicio.html')
+
 
 #--------------------Vistas para html----------------------------------------
 

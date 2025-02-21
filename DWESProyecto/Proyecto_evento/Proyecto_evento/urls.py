@@ -40,6 +40,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.login, name='login'),
     path('inicio/', views.eventos_html, name='eventos_html'),
+    path('reservas/',views.reservas, name='reservas_html'),
     #----------------------------------------------------------------
     path('lista_evento/',listarEventos.as_view(),name="listarEvento"),
     path('evento/',eventosPorNombre.as_view(), name="listarEventosPorNombre"),
@@ -56,6 +57,7 @@ urlpatterns = [
     path('login/', ObtainAuthToken.as_view(), name='api_token_auth'),
     path('registrar/',Resgistrar.as_view(),name="Resguistrar"),
 ]
+
 schema_view = get_schema_view(
     openapi.Info(
         title="API EventoApp",
