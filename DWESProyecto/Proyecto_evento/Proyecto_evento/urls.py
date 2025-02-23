@@ -35,7 +35,7 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from rest_framework.permissions import AllowAny
-from eventoapp.views import eliminar_evento
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.login, name='login'),
