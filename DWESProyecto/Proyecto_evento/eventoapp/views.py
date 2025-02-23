@@ -486,3 +486,6 @@ class Resgistrar(APIView):
             return Response({"Mensaje": "Te haz registrado correctamente uwu"})
 
 
+
+
+#-----------------------------------------------------------------------------------
